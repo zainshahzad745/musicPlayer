@@ -9,7 +9,7 @@ import {
   VolumeDown,
   VolumeUp,
 } from '@mui/icons-material';
-
+import './MusicPlayer.css'
 import AudioVisualizer from './AudioVisualizer';
 
 
@@ -97,7 +97,7 @@ function MusicPlayer() {
 
   return (
     <Box sx={{ textAlign: 'center', maxWidth: '400px', margin: 'auto' }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography color={'white'} className='mainTitle' variant="h4" gutterBottom>
         Music Player
       </Typography>
       <AudioVisualizer audioRef={audioRef} />
@@ -113,26 +113,24 @@ function MusicPlayer() {
           }
         }}
       />
-      <Button variant="contained" onClick={() => fileInputRef.current.click()}>
+      <Button className='addSong' style={{backgroundColor: '#0080809d', width: '450px', marginLeft: '-22px'}} variant="contained" onClick={() => fileInputRef.current.click()}>
         <AddCircleOutline /> Add Song
       </Button>
-      <Box sx={{ textAlign: 'left', margin: '16px' }}>
-        <Typography variant="h6" gutterBottom>
+      <Box sx={{ textAlign: 'left', margin: '16px', backgroundColor: '#0080809d', borderRadius: '10px', width: '450px', marginLeft: '-25px' }} >
+        <Typography className='playlist' variant="h6" gutterBottom color={'white'}>
           Playlist
         </Typography>
-        <ul>
+        <ul style={{color: 'white', textAlign: 'left'}}>
           {playlist.map((file, index) => (
-            <li key={index}>
+            <li style={{padding:'5px'}} key={index} >
               {file.name}{' '}
-              <Button
-                variant="outlined"
-                size="small"
-                color="error"
+              <Button style={{backgroundColor: '#510400', color: 'white', height:'30px', fontSize: 'small'}} 
+
                 onClick={() => removeFromPlaylist(index)}
               >
                 Remove
               </Button>{' '}
-              <Button variant="outlined" size="small" onClick={() => playAudio(index)}>
+              <Button style={{backgroundColor: '#023020', color: 'white', height:'30px', fontSize: 'small'}}  onClick={() => playAudio(index)}>
                 Play
               </Button>
             </li>
@@ -140,35 +138,48 @@ function MusicPlayer() {
         </ul>
       </Box>
       <Slider
-        value={volume}
-        onChange={handleVolumeChange}
-        step={0.01}
-        min={0}
-        max={1}
-        aria-label="Volume"
-        sx={{ display: 'flex', alignItems: 'center' }}
-      >
-        <VolumeDown />
-        <Slider
-          value={volume}
-          onChange={handleVolumeChange}
-          step={0.01}
-          min={0}
-          max={1}
-          aria-label="Volume"
-          sx={{ flexGrow: 1 }}
-        />
-        <VolumeUp />
-      </Slider>
+  value={volume}
+  onChange={handleVolumeChange}
+  step={0.01}
+  min={0}
+  max={1}
+  aria-label="Volume"
+  sx={{
+    display: 'flex',
+    alignItems: 'center',
+    '& .MuiSlider-rail': {
+      backgroundColor: '#0080809d', // Change the rail color here
+    },
+    '& .MuiSlider-track': {
+      backgroundColor: '#0080809d', // Change the track color here
+    },
+    '& .MuiSlider-thumb': {
+      backgroundColor: '#0080809d', // Change the thumb color here
+    },
+  }}
+>
+  <VolumeDown />
+  <Slider
+    value={volume}
+    onChange={handleVolumeChange}
+    step={0.01}
+    min={0}
+    max={1}
+    aria-label="Volume"
+    sx={{ flexGrow: 1 }}
+  />
+  <VolumeUp />
+</Slider>
+
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
         <IconButton onClick={handlePreviousTrack}>
-          <SkipPrevious />
+          <SkipPrevious style={{color: 'white'}} />
         </IconButton>
         <IconButton onClick={togglePlayPause}>
-          {isPlaying ? <Pause /> : <PlayArrow />}
+          {isPlaying ? <Pause style={{color: 'white'}} /> : <PlayArrow style={{color: 'white'}} />}
         </IconButton>
         <IconButton onClick={handleNextTrack}>
-          <SkipNext />
+          <SkipNext style={{color: 'white'}} />
         </IconButton>
       </Box>
       <Tooltip
@@ -180,7 +191,19 @@ function MusicPlayer() {
           onChange={handleSeekBarChange}
           step={0.1}
           aria-label="Song Progress"
-          sx={{ display: 'flex', alignItems: 'center' }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            '& .MuiSlider-rail': {
+              backgroundColor: '#0080809d', // Change the rail color here
+            },
+            '& .MuiSlider-track': {
+              backgroundColor: '#0080809d', // Change the track color here
+            },
+            '& .MuiSlider-thumb': {
+              backgroundColor: '#0080809d', // Change the thumb color here
+            },
+          }}
         >
           <SkipPrevious />
           <Slider
@@ -194,7 +217,7 @@ function MusicPlayer() {
           <SkipNext />
         </Slider>
       </Tooltip>
-      <Typography variant="body2" gutterBottom>
+      <Typography color={'white'} padding={'10px'} fontSize={'20px'} width={'500px'} marginLeft={'-40px'} variant="body2" gutterBottom>
         {currentTrackName}
       </Typography>
     </Box>

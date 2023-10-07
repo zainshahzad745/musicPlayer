@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import './AudioVisualizer.css'
+
 
 function AudioVisualizer({ audioRef }) {
   const canvasRef = useRef(null);
@@ -35,7 +37,7 @@ function AudioVisualizer({ audioRef }) {
       for (let i = 0; i < bufferLength; i++) {
         const barHeight = dataArray[i] * 2;
 
-        canvasCtx.fillStyle = 'rgb(0, 0, 255)';
+        canvasCtx.fillStyle = 'rgb(2, 48, 32)';
         canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
 
         x += barWidth + 1;
@@ -59,7 +61,7 @@ function AudioVisualizer({ audioRef }) {
 
   return (
     <div style={{marginLeft: '-104px'}} >
-      <canvas ref={canvasRef} width={600} height={400} />
+      <canvas className='visualizer' ref={canvasRef} width={600} height={400} />
     </div>
   );
 }

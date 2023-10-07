@@ -1,9 +1,29 @@
-/* Style the visualizer container */
-.audio-visualizer {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
-}  
+.mainTitle{
+    padding: 20px;
+    font-size: 150px;
+    /* font-weight: lighter; */
+}
+
+.addSong{
+    padding: 10px;
+    margin-top: 20px;
+    width: 400px;
+    
+}
+
+.playlist{
+    text-align: center;
+    font-size: 100px;
+    font-weight: lighter;
+    /* margin-left: 20px; */
+}
+
+.title{
+
+    font-size: large;
+}
+
+.new{
+
+    background-color: cadetblue;
+}
