@@ -1,12 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Button, Slider, Typography, Tooltip } from '@mui/material';
+import { Box, Button, Slider, Typography, Tooltip, IconButton } from '@mui/material';
 import {
   AddCircleOutline,
   PlayArrow,
   Pause,
-  SkipNext,
   SkipPrevious,
+  SkipNext,
+  VolumeDown,
+  VolumeUp,
 } from '@mui/icons-material';
+
+import AudioVisualizer from './AudioVisualizer';
+
+
 
 function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -94,6 +100,7 @@ function MusicPlayer() {
       <Typography variant="h4" gutterBottom>
         Music Player
       </Typography>
+      <AudioVisualizer audioRef={audioRef} />
       <input
         type="file"
         accept="audio/*"
@@ -139,17 +146,30 @@ function MusicPlayer() {
         min={0}
         max={1}
         aria-label="Volume"
-      />
+        sx={{ display: 'flex', alignItems: 'center' }}
+      >
+        <VolumeDown />
+        <Slider
+          value={volume}
+          onChange={handleVolumeChange}
+          step={0.01}
+          min={0}
+          max={1}
+          aria-label="Volume"
+          sx={{ flexGrow: 1 }}
+        />
+        <VolumeUp />
+      </Slider>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-        <Button variant="contained" onClick={handlePreviousTrack}>
-          <SkipPrevious /> Previous
-        </Button>
-        <Button variant="contained" onClick={togglePlayPause}>
-          {isPlaying ? <Pause /> : <PlayArrow />} {isPlaying ? 'Pause' : 'Play'}
-        </Button>
-        <Button variant="contained" onClick={handleNextTrack}>
-          Next <SkipNext />
-        </Button>
+        <IconButton onClick={handlePreviousTrack}>
+          <SkipPrevious />
+        </IconButton>
+        <IconButton onClick={togglePlayPause}>
+          {isPlaying ? <Pause /> : <PlayArrow />}
+        </IconButton>
+        <IconButton onClick={handleNextTrack}>
+          <SkipNext />
+        </IconButton>
       </Box>
       <Tooltip
         title={`${currentTrackName} - ${formatTime(currentTime)} / ${formatTime(duration)}`}
@@ -160,7 +180,19 @@ function MusicPlayer() {
           onChange={handleSeekBarChange}
           step={0.1}
           aria-label="Song Progress"
-        />
+          sx={{ display: 'flex', alignItems: 'center' }}
+        >
+          <SkipPrevious />
+          <Slider
+            value={currentTime}
+            max={duration}
+            onChange={handleSeekBarChange}
+            step={0.1}
+            aria-label="Song Progress"
+            sx={{ flexGrow: 1 }}
+          />
+          <SkipNext />
+        </Slider>
       </Tooltip>
       <Typography variant="body2" gutterBottom>
         {currentTrackName}
